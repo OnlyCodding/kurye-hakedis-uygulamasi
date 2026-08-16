@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restoran Yönetim Paneli - Yönetici Girişi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="logo">
+                <i class="fa-solid fa-bolt logo-icon"></i>
+                <span class="logo-text">Restoran Yönetim Paneli</span>
+            </div>
+            <h2>Sisteme Giriş Yapın</h2>
+            <p class="subtitle">Kurye Hakediş ve Yönetim Paneli</p>
+            
+            <form id="login-form">
+                <div class="form-group">
+                    <label>Kullanıcı Adı</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-user input-icon"></i>
+                        <input type="text" id="username" placeholder="Kullanıcı adınızı girin" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Şifre</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-lock input-icon"></i>
+                        <input type="password" id="password" placeholder="Şifrenizi girin" required>
+                    </div>
+                </div>
+                
+                <div id="error-msg" class="error-msg"></div>
+                
+                <button type="submit" class="login-btn">GİRİŞ YAP</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const u = document.getElementById('username').value;
+            const p = document.getElementById('password').value;
+            const err = document.getElementById('error-msg');
+            
+            try {
+                const res = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username: u, password: p })
+                });
+                const data = await res.json();
+                
+                if (data.success) {
+                    window.location.href = '/';
+                } else {
+                    err.innerText = data.message || "Giriş başarısız!";
+                    err.style.display = 'block';
+                }
+            } catch (error) {
+                err.innerText = "Bir hata oluştu. Sunucuya bağlanılamıyor.";
+                err.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

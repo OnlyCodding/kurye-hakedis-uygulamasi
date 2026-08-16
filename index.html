@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restoran Yönetim Paneli - Kurye Hakediş ve Yönetim Paneli</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="top-header">
+            <div class="header-left">
+                <button id="menu-toggle" class="icon-btn"><i class="fa-solid fa-bars"></i></button>
+                <h2 class="page-title" id="page-title">Maaş Hesapla</h2>
+            </div>
+            
+            <div class="header-right">
+                <button class="icon-btn" id="dark-mode-toggle"><i class="fa-solid fa-moon"></i></button>
+                <div class="dropdown" style="display: inline-block;">
+                    <button class="icon-btn notification-btn" onclick="this.nextElementSibling.classList.toggle('show')">
+                        <i class="fa-regular fa-bell"></i>
+                    </button>
+                    <div class="dropdown-content" style="right: -50px; left: auto; width: 300px; padding: 0; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border-radius: 4px; border: 1px solid #e9ecef;">
+                        <div style="padding: 15px; text-align: center; border-bottom: 1px solid #e9ecef; background: #f8f9fa; font-weight: 500; font-size: 15px; color: #495057;">
+                            Bildirimler
+                        </div>
+                        <div style="padding: 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #38bdf8;">
+                            <span style="font-size: 16px; color: #212529;">Bekleyen Paket Başı Siparişler</span>
+                            <span style="font-size: 16px; color: #007bff;">0</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="icon-btn" id="fullscreen-toggle"><i class="fa-solid fa-expand"></i></button>
+            </div>
+        </header>
+
+        <div class="content-wrapper">
+            <!-- Sidebar -->
+            <aside class="sidebar collapsed" id="sidebar">
+                <nav class="sidebar-nav">
+                    <ul>
+                        <li class="nav-item active" data-page="hakedis">
+                            <img src="calculator-icon.svg" class="nav-icon-custom" alt="Maaş Hesapla">
+                            <span>Maaş Hesapla</span>
+                        </li>
+                        <li class="nav-item has-submenu" id="menu-kullanicilar">
+                            <div class="nav-item-left">
+                                <i class="fa-solid fa-users nav-icon"></i>
+                                <span>Kullanıcılar</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-down submenu-arrow"></i>
+                        </li>
+                        <div class="submenu" id="submenu-kullanicilar">
+                            <li class="nav-item sub-item" data-page="kullanici-ekle">
+                                <i class="fa-regular fa-circle nav-icon-sub"></i>
+                                <span>Kullanıcı Ekle</span>
+                            </li>
+                            <li class="nav-item sub-item" data-page="kurye-listesi">
+                                <i class="fa-regular fa-circle nav-icon-sub"></i>
+                                <span>Kurye Listesi</span>
+                            </li>
+                            <li class="nav-item sub-item" data-page="isyeri-listesi">
+                                <i class="fa-regular fa-circle nav-icon-sub"></i>
+                                <span>Üye İşyeri Listesi</span>
+                            </li>
+                            <li class="nav-item sub-item" data-page="pasif-kullanicilar">
+                                <i class="fa-regular fa-circle nav-icon-sub"></i>
+                                <span>Pasif Kullanıcılar</span>
+                            </li>
+                        </div>
+                        <li class="nav-item" data-page="shift-takip">
+                            <i class="fa-solid fa-calendar-alt nav-icon"></i>
+                            <span>Kurye Shift Takip</span>
+                        </li>
+                        <li class="nav-item has-submenu" id="menu-paket-takip">
+                            <div class="nav-item-left">
+                                <i class="fa-solid fa-boxes-packing nav-icon"></i>
+                                <span>Paket Takip</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-down submenu-arrow"></i>
+                        </li>
+                        <div class="submenu" id="submenu-paket-takip">
+                            <li class="nav-item sub-item" data-page="kurye-paket-takip">
+                                <i class="fa-regular fa-circle nav-icon-sub"></i>
+                                <span>Kurye Paket Takip</span>
+                            </li>
+                            <li class="nav-item sub-item" data-page="isyeri-paket-takip">
+                                <i class="fa-regular fa-circle nav-icon-sub"></i>
+                                <span>Üye İşyeri Paket Takip</span>
+                            </li>
+                        </div>
+                        <li class="nav-item has-submenu" id="menu-demirbas">
+                            <div class="nav-item-left">
+                                <i class="fa-solid fa-boxes-stacked nav-icon"></i>
+                                <span>Demirbaş</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-down submenu-arrow"></i>
+                        </li>
+                        <div class="submenu" id="submenu-demirbas">
+                            <li class="nav-item sub-item" data-page="demirbas-stok">
+                                <i class="fa-regular fa-circle nav-icon-sub"></i>
+                                <span>Demirbaş Stok</span>
+                            </li>
+                            <li class="nav-item sub-item" data-page="demirbas-zimmetle">
+                                <i class="fa-regular fa-circle nav-icon-sub"></i>
+                                <span>Demirbaş Zimmetle</span>
+                            </li>
+                        </div>
+                        <li class="nav-item has-submenu" id="menu-giderler">
+                            <div class="nav-item-left">
+                                <i class="fa-solid fa-file-invoice-dollar nav-icon"></i>
+                                <span>Giderler</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-down submenu-arrow"></i>
+                        </li>
+                        <div class="submenu" id="submenu-giderler">
+                            <li class="nav-item sub-item" data-page="gider-virman-ekle">
+                                <i class="fa-regular fa-circle nav-icon-sub"></i>
+                                <span>Gider-Virman Ekle</span>
+                            </li>
+                            <li class="nav-item sub-item" data-page="gider-listesi">
+                                <i class="fa-regular fa-circle nav-icon-sub"></i>
+                                <span>Gider Listesi</span>
+                            </li>
+                            <li class="nav-item sub-item" data-page="gider-carisi">
+                                <i class="fa-regular fa-circle nav-icon-sub"></i>
+                                <span>Gider Carisi</span>
+                            </li>
+                        </div>
+                        <li class="nav-item" data-page="gelir-gider">
+                            <i class="fa-solid fa-chart-line nav-icon"></i>
+                            <span>Gelir Gider</span>
+                        </li>
+                        <li class="nav-item" data-page="fatura-yukle-olustur">
+                            <i class="fa-solid fa-file-invoice nav-icon"></i>
+                            <span>Fatura Yükle veya Oluştur</span>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+            <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <!-- Page Container (Dynamic injection) -->
+                <div class="page-container" id="page-container">
+                    <!-- Content will be loaded here via JS -->
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="data.js?v=20260817_76"></script>
+    <script src="app.js?v=20260817_76"></script>
+</body>
+</html>
